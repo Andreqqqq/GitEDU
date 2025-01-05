@@ -18,7 +18,22 @@ class OnlineCourse implements Course {
     required this.materials,
     required this.tests,
     this.available = true,
-  });
+  }) {
+    if (name.isEmpty) {
+      throw Exception('Назва курсу не може бути порожньою');
+    }
+    validatePrice(price);
+    if (materials.isEmpty) {
+      throw Exception('Курс повинен мати хоча б один навчальний матеріал');
+    }
+  }
+
+// 4. Додавання перевірки ціни курсу
+  void validatePrice(double price) {
+    if (price < 0) {
+      throw Exception('Ціна курсу не може бути від\'ємною');
+    }
+  }
 
   @override
   String getName() => name;

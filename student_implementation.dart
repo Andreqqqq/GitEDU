@@ -16,7 +16,27 @@ class OnlineStudent implements Student {
     required this.email,
     required this.phone,
   })  : enrolledCourses = [],
-        certificates = [];
+        certificates = [] {
+    if (name.isEmpty) {
+      throw Exception('Ім\'я студента не може бути порожнім');
+    }
+    if (!isValidEmail(email)) {
+      throw Exception('Невірний формат email');
+    }
+    if (!isValidPhone(phone)) {
+      throw Exception('Невірний формат телефону');
+    }
+  }
+
+// 2. Додавання валідації email
+  static bool isValidEmail(String email) {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
+  }
+
+// 3. Додавання валідації телефону
+  static bool isValidPhone(String phone) {
+    return RegExp(r'^\+?380\d{9}$').hasMatch(phone);
+  }
 
   @override
   String getName() => name;
